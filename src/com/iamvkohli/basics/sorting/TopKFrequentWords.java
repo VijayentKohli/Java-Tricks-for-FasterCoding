@@ -6,9 +6,12 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
+/*
+ * LEETCODE - https://leetcode.com/problems/top-k-frequent-words/
+ */
 public class TopKFrequentWords {
 
-	public List<String> topKFrequent(String[] words, int k) {
+	public static List<String> topKFrequent(String[] words, int k) {
 		
 		//Creating and Populating the hashmap
 		HashMap<String, Integer> map = new HashMap<>();
@@ -24,8 +27,9 @@ public class TopKFrequentWords {
 		 * Iterate over the entries of "result"
 		 * SORT the result in decreasing order of map values
 		 */
-		Collections.sort(result,
-				(s1, s2) -> map.get(s1).equals(map.get(s2)) ? s1.compareTo(s2) : map.get(s2) - map.get(s1));
+//		Collections.sort(result,
+//				(s1, s2) -> map.get(s1).equals(map.get(s2)) ? s1.compareTo(s2) : map.get(s2) - map.get(s1));
+		
 		
 		Comparator<String> cmp = new Comparator<String>() {
 			@Override
@@ -36,18 +40,21 @@ public class TopKFrequentWords {
 				
 				if(v1==v2) {
 					int res = s1.compareTo(s2);
+					return res;
 				}
-				
 				return v2-v1;
 			}
-
 		};
+		
+		Collections.sort(result, cmp);
 
 		return result.subList(0, k);
 
 	}
 
 	public static void main(String[] args) {
-
+		String [] words = {"i", "love", "leetcode", "i", "love", "coding"};
+		int k1 = 2;
+		topKFrequent(words, 2);
 	}
 }
